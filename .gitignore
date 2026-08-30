@@ -1,0 +1,35 @@
+# Secrets
+.env
+.env.local
+
+# The corpus itself: media and transcripts are large and re-derivable.
+# Transcripts are CACHED here on purpose (never re-run Whisper during
+# iteration) but they do not belong in git.
+data/media/
+data/audio/
+data/transcripts/
+*.mp4
+*.mkv
+*.webm
+*.wav
+*.m4a
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+
+# Node / frontend
+node_modules/
+dist/
+.vite/
+
+# Postgres volume, if ever bind-mounted
+pgdata/
+
+# macOS
+.DS_Store
