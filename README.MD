@@ -58,6 +58,66 @@ full spec, done-bars, and known traps per version.
 talks. Transcribed once and cached — retrieval quality here is tuned against
 this one corpus, not claimed to generalize.
 
+## Getting started
+
+Everything runs in Docker — you do not need Postgres, Python, or Node installed
+locally.
+
+**Prerequisites:** [Docker Desktop](https://docs.docker.com/desktop/) with the
+WSL2 backend on Windows (the default), or Docker Engine on Linux/macOS.
+
+```bash
+cp .env.example .env    # then fill in POSTGRES_PASSWORD
+docker compose up -d
+```
+
+Verify it came up:
+
+```bash
+docker compose ps
+```
+
+The `db` service should read `Up (healthy)`. Health here means Postgres is
+actually accepting connections, not just that the container started — services
+that depend on the database wait for this, so a cold `up` works on the first
+try.
+
+Open a SQL shell:
+
+```bash
+docker compose exec db psql -U groundtruth -d groundtruth
+```
+
+Useful once you're in: `\dx` lists installed extensions (`vector` should be
+there), `\dt` lists tables, `\q` quits.
+
+Stop everything:
+
+```bash
+docker compose down
+```
+
+### Things worth knowing
+
+**`docker compose down -v` deletes the database.** The `-v` flag removes named
+volumes, which is where all Postgres data lives. Plain `down` stops the
+containers and leaves the data alone. Only reach for `-v` when you genuinely
+want to start from an empty database.
+
+**The Postgres volume mounts at `/var/lib/postgresql`, not
+`/var/lib/postgresql/data`.** Postgres 18 changed this: it now wants a single
+mount one level up and manages a version-specific subdirectory itself, so that
+a future `pg_upgrade` can keep two versions side by side. Mounting the old path
+fails at startup with a long "unused mount/volume" error. If you hit it after
+changing the path, `docker compose down -v` clears the half-initialised volume.
+
+**Postgres is pinned to `pgvector/pgvector:pg18`** — a full Postgres 18 server
+with the pgvector extension already compiled in, so there is nothing extra to
+install. The pin is deliberate: major-version upgrades need a data migration,
+so the version should only change on purpose. The extension still has to be
+enabled once per database with `CREATE EXTENSION IF NOT EXISTS vector;`, which
+the schema migration handles.
+
 ## Docs
 
 - [`PROJECT_PLAN.md`](./PROJECT_PLAN.md) — full spec, architecture rationale, and per-version build details
