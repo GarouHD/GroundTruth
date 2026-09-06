@@ -1,0 +1,9 @@
+.env
+
+# Data artifacts: keep the folder structure, ignore the contents
+data/audio/*
+data/videos/*
+data/transcipts/*
+!data/audio/.gitkeep
+!data/videos/.gitkeep
+!data/transcipts/.gitkeep
