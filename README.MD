@@ -56,9 +56,21 @@ full spec, done-bars, and known traps per version.
 
 10–20 hours of clearly-licensed, factually dense, slide-heavy AI/ML conference
 talks. Transcribed once and cached — retrieval quality here is tuned against
-this one corpus, not claimed to generalize.
+this one corpus, not claimed to generalize. Candidate videos being scouted are
+tracked in [`data/youtube_videos.md`](./data/youtube_videos.md).
+
+## Getting started
+
+There's no runnable app yet (see Status above). What exists so far:
+
+1. Copy [`.env.example`](./.env.example) to `.env` and fill in Postgres
+   credentials and any provider keys the chosen stack ends up using.
+2. Docker Compose, the FastAPI backend, and the React frontend all still need
+   to be built per `PROJECT_PLAN.md` — none of that exists yet, so there's
+   nothing to `docker compose up` yet.
 
 ## Docs
 
 - [`PROJECT_PLAN.md`](./PROJECT_PLAN.md) — full spec, architecture rationale, and per-version build details
-- `CLAUDE.md` — working instructions for AI-assisted development on this repo
+- [`CLAUDE.md`](./Claude.md) — working instructions for AI-assisted development on this repo
+- [`.env.example`](./.env.example) — required environment variables, copy to `.env`
