@@ -1,4 +1,6 @@
 .env
+.claude/settings.local.json
+.vscode/
 
 # Data artifacts: keep the folder structure, ignore the contents
 data/audio/*
