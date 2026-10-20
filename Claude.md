@@ -123,3 +123,15 @@ earlier version is incomplete — see the "Standing rules" below.
    polishing ingestion before anything is queryable end-to-end; treating
    chunking strategy as a settled default; building an LLM-as-judge before
    human labels exist to validate it against.
+
+## Docs
+
+- `docs/decisions.md` — running log of project decisions (no dates). **Add an
+  entry whenever a non-trivial choice is made or reversed**: picking a model,
+  library, chunking strategy, index type, or schema shape; cutting a feature
+  (standing rule 4); or when a measurement changes an earlier choice. Each entry:
+  what was chosen, alternatives, why (with the measured number once there is
+  one), and status. Update an existing entry instead of duplicating it.
+- `docs/learning-notes.md` — plain-language explanations of concepts the owner is
+  learning as they build this. Add a short section when a new concept is
+  explained in depth.
